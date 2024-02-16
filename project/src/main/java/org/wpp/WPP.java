@@ -65,7 +65,7 @@ public class WPP
         // Util.noop();
     }
 
-    public void birthRate(String[][] countries)
+    public void birthRate(String[][] countries)  throws Exception
     {
         Util.out("");
         Util.out("Crude birth rate (per 1000)");
@@ -74,7 +74,7 @@ public class WPP
         rate(countries, ixCrudeBirthRate);
     }
 
-    public void deathRate(String[][] countries)
+    public void deathRate(String[][] countries)  throws Exception
     {
         Util.out("");
         Util.out("Crude death rate (per 1000)");
@@ -87,7 +87,7 @@ public class WPP
     private static final int rateEndYear = 2019;
     private static final int rateStepYears = 5;
 
-    private void rate(String[][] countries, int ixRate)
+    private void rate(String[][] countries, int ixRate) throws Exception
     {
         rateHeadRow();
         
@@ -128,7 +128,7 @@ public class WPP
         Util.out(sb.toString());
     }
 
-    private void rate(String countryDisplayName, String country, int ixRate)
+    private void rate(String countryDisplayName, String country, int ixRate) throws Exception
     {
         StringBuilder sb = new StringBuilder();
         sb.append("\"").append(countryDisplayName).append("\"");
@@ -150,8 +150,13 @@ public class WPP
             if (bucket == rateStepYears || yy == rateEndYear)
             {
                 /* flush */
-                String s = String.format("%.3f", sum / bucket);
+                d = sum/bucket;
+                
+                String s = String.format("%.3f", d);
+                if (s.endsWith("0"))
+                    s = Util.stripTail(s, "0");
                 sb.append(",").append(s);
+                
                 bucket = 0;
                 sum = 0;
             }
