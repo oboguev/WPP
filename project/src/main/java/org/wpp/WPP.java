@@ -49,7 +49,7 @@ public class WPP
             }
             else if (!xc.equals(country))
             {
-                // throw new Exception("Ambiguous country record");
+                throw new Exception("Ambiguous country record");
             }
             
             List<String[]> rows = country2rows.get(country);
